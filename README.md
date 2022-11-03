@@ -1,4 +1,4 @@
-# CIL-HTC2022-Algo1
+# CIL-HTC2022-Algo4
 
 ## Authors:
 - Gemma Fardell (STFC), United Kingdom
