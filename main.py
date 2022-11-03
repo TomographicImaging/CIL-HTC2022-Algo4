@@ -21,7 +21,7 @@ import glob
 import numpy as np
 # method imports
 import util
-from algo import pdhg_tv
+from algo import TV_iso_and_aniso_PDHG
 
 def preprocess(data):
     '''Preprocess the data'''
@@ -98,7 +98,11 @@ def main():
     # Reconstruction
     num_iters = 2000
     # with this algo we do not change alpha with difficulty level
-    alpha = 0.01
+    iso_weight = 1.0
+    aniso_weight_y = 1.0
+    aniso_weight_x = 1.0
+    init_recon = None
+    
     update_objective_interval = 100
     verbose = 1
     
@@ -137,10 +141,9 @@ def main():
         
         
         # algorithmic parameters
-        args = [omega, alpha]
-        
+        args = [omega, iso_weight, aniso_weight_y, aniso_weight_x, init_recon]
         # Run reconstruction
-        data_recon = pdhg_tv(data_preprocessed, ig, lb, ub, *args, num_iters=num_iters, 
+        data_recon = TV_iso_and_aniso_PDHG(data_preprocessed, ig, lb, ub, *args, num_iters=num_iters, 
                 update_objective_interval=update_objective_interval, verbose=verbose)
         
         data_segmented = segment(data_recon, segmentation_method)

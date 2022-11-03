@@ -164,21 +164,18 @@ def pdhg_l1tvl1(data, ig, lb, ub, *args, num_iters=2000, update_objective_interv
     return algo.solution.copy()
 
 
-def TV_iso_and_aniso_PDHG(preproc_data, fidelity_weight=10, 
-                          iso_weight = 1.0,
-                          aniso_weight_y = 1.0,
-                          aniso_weight_x = 1.0, lower = 0.0, upper = 0.04, init_recon = None,
-                          max_iterations = 1000, update_objective_interval = 100, verbose=1, imsize=None):
+def TV_iso_and_aniso_PDHG(preproc_data, ig, lb, ub, 
+                          *args,
+                          num_iters = 1000, update_objective_interval = 100, verbose=1):
         
-    # image geometry
-    ig = preproc_data.geometry.get_ImageGeometry()
-    
-    if imsize is not None:
-        ig.voxel_num_x = imsize
-        ig.voxel_num_y = imsize    
+    fidelity_weight = args[0] #10 
+    iso_weight = args[1] #1.0,
+    aniso_weight_y = args[2] # 1.0,
+    aniso_weight_x = args[3] #1.0, 
+    init_recon = args[4] # None,
     
     if init_recon is None:
-        init_recon = ig.allocate()    
+        init_recon = ig.allocate(0.)    
     
     # FinDiff operators in y, x (numpy)
     DY = FiniteDifferenceOperator(ig, direction=0)
@@ -201,7 +198,7 @@ def TV_iso_and_aniso_PDHG(preproc_data, fidelity_weight=10,
     
     # PDHG no composite part
     #G = IndicatorBox(lower=lower, upper=upper)
-    G = IndicatorBoxPixelwise(lower=lower, upper=upper)
+    G = IndicatorBoxPixelwise(lower=lb, upper=ub)
 
     normK = K.norm()
     
@@ -211,7 +208,7 @@ def TV_iso_and_aniso_PDHG(preproc_data, fidelity_weight=10,
     pdhg_anis_iso = PDHG(initial=init_recon,f=F, g=G, operator=K, 
                 update_objective_interval=update_objective_interval,
                 sigma=sigma, tau=tau,
-               max_iteration=max_iterations)
+               max_iteration=num_iters)
     pdhg_anis_iso.run(verbose=verbose)    
     
     return pdhg_anis_iso.solution.copy()
