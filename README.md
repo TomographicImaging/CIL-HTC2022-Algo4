@@ -64,7 +64,7 @@ Left, is the given segmented result of performing FBP on the full dataset, right
 
 FBP on Full Dataset        |  Result of CIL-Algo4 - Score: 0.89180
 :-------------------------:|:-------------------------:
-![](https://github.com/TomographicImaging/CIL-HTC2022-Algo4/blob/main/test_data/htc2022_ta_full_recon_fbp_seg.png)   |  ![](https://github.com/TomographicImaging/CIL-HTC2022-Algo1/blob/show_examples/results/htc2022_ta_sparse_example.png)
+![](https://github.com/TomographicImaging/CIL-HTC2022-Algo4/blob/main/test_data/htc2022_ta_full_recon_fbp_seg.png)   |  ![](https://github.com/TomographicImaging/CIL-HTC2022-Algo4/blob/show_examples/results/htc2022_ta_sparse_example.png)
 
 ## Repository content
 - utils.py
