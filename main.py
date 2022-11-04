@@ -98,9 +98,9 @@ def main():
     # Reconstruction
     num_iters = 2000
     # with this algo we do not change alpha with difficulty level
-    iso_weight = 0.01
-    aniso_weight_y = 0.1
-    aniso_weight_x = 0.1
+    iso_weight = 0.0001
+    aniso_weight_y = 0.001
+    aniso_weight_x = 0.001
     init_recon = None
     
     update_objective_interval = 100
